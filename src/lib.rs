@@ -5,10 +5,10 @@
     clippy::panic
 )]
 
-pub type Result<T> = core::result::Result<T, Box<dyn Error>>;
+pub type Result<T> = core::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
 
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
-use std::{env, error::Error};
+use std::env;
 
 pub async fn get_database_connection() -> Result<DatabaseConnection> {
     let db_url = get_database_url()?;
